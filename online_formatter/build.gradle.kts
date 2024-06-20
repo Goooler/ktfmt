@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-plugins { kotlin("jvm") version "1.8.22" }
+plugins {
+    alias(libs.plugins.kotlin.jvm)
+}
 
 val ktfmtVersion = rootProject.file("version.txt").readText().trim()
 

@@ -5,6 +5,7 @@
  */
 
 plugins {
+    alias(libs.plugins.kotlin.jvm)
     id("buildlogic.java-conventions")
 }
 
