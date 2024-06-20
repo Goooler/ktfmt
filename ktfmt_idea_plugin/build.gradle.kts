@@ -20,17 +20,12 @@ plugins {
   id("com.diffplug.spotless") version "5.10.2"
 }
 
-val ktfmtVersion = rootProject.file("../version.txt").readText().trim()
+val ktfmtVersion = rootProject.file("version.txt").readText().trim()
 val pluginVersion = "1.1"
 
 group = "com.facebook"
 
 version = "$pluginVersion.$ktfmtVersion"
-
-repositories {
-  mavenCentral()
-  mavenLocal()
-}
 
 java {
   sourceCompatibility = JavaVersion.VERSION_11

@@ -16,12 +16,7 @@
 
 plugins { kotlin("jvm") version "1.8.22" }
 
-repositories {
-  mavenLocal()
-  mavenCentral()
-}
-
-val ktfmtVersion = rootProject.file("../version.txt").readText().trim()
+val ktfmtVersion = rootProject.file("version.txt").readText().trim()
 
 dependencies {
   implementation("com.facebook:ktfmt:$ktfmtVersion")
