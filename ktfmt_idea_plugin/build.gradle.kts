@@ -15,16 +15,15 @@
  */
 
 plugins {
-  id("org.jetbrains.intellij") version "1.17.3"
+  alias(libs.plugins.intellij)
+  alias(libs.plugins.spotless)
   java
-  id("com.diffplug.spotless") version "5.10.2"
 }
 
 val ktfmtVersion = rootProject.file("version.txt").readText().trim()
 val pluginVersion = "1.1"
 
 group = "com.facebook"
-
 version = "$pluginVersion.$ktfmtVersion"
 
 java {
@@ -33,8 +32,8 @@ java {
 }
 
 dependencies {
-  implementation("com.facebook", "ktfmt", ktfmtVersion)
-  implementation("com.google.googlejavaformat", "google-java-format", "1.22.0")
+  implementation(projects.core)
+  implementation(libs.googlejavaformat)
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/

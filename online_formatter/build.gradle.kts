@@ -18,10 +18,8 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
 }
 
-val ktfmtVersion = rootProject.file("version.txt").readText().trim()
-
 dependencies {
-  implementation("com.facebook:ktfmt:$ktfmtVersion")
+  implementation(projects.core)
   implementation(platform("software.amazon.awssdk:bom:2.10.73"))
   implementation("software.amazon.awssdk:lambda")
   implementation("com.amazonaws:aws-lambda-java-core:1.2.1")

@@ -19,11 +19,12 @@ dependencyResolutionManagement {
                 includeGroupByRegex("androidx.*")
             }
         }
-        mavenLocal()
     }
 }
 
 rootProject.name = "ktfmt-parent"
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(
     ":core",
