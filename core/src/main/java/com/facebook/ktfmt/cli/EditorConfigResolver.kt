@@ -108,9 +108,7 @@ object EditorConfigResolver {
             ?: getValue(PropertyType.tab_width, baseOptions.blockIndent, false)
 
     val continuationIndent =
-        properties[ijKotlinContinuationIndentSize.name]
-            ?.takeIf { it.isValid }
-            ?.getValueAs<Int>()
+        properties[ijKotlinContinuationIndentSize.name]?.takeIf { it.isValid }?.getValueAs<Int>()
             ?: getValue(ijContinuationIndentSize, baseOptions.continuationIndent, false)
 
     val trailingCommaStrategy =
