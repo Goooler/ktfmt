@@ -32,6 +32,13 @@ import org.ec4j.core.model.Version.CURRENT
 
 object EditorConfigResolver {
 
+  private val ijKotlinIndentSize: PropertyType<Int> =
+      PropertyType.LowerCasingPropertyType(
+          "ij_kotlin_indent_size",
+          "Denotes the indent size for Kotlin files. Takes priority over indent_size.",
+          PropertyType.PropertyValueParser.POSITIVE_INT_VALUE_PARSER,
+      )
+
   private val ijContinuationIndentSize: PropertyType<Int> =
       PropertyType.LowerCasingPropertyType(
           "ij_continuation_indent_size",
@@ -60,6 +67,7 @@ object EditorConfigResolver {
         PropertyTypeRegistry.builder()
             .defaults()
             .type(PropertyType.max_line_length) // missing from defaults?
+            .type(ijKotlinIndentSize)
             .type(ijContinuationIndentSize)
             .type(commaManagementStrategy)
             .build()
@@ -95,8 +103,10 @@ object EditorConfigResolver {
         getValue(PropertyType.max_line_length, baseOptions.maxWidth, false) ?: baseOptions.maxWidth
 
     // `indent_size` may return null to indicate 'tab', in which case we defer to `tab_width`
+    // `ij_kotlin_indent_size` takes priority over `indent_size` when present
     val blockIndent =
-        getValue(PropertyType.indent_size, baseOptions.blockIndent, false)
+        getValue(ijKotlinIndentSize, null, false)
+            ?: getValue(PropertyType.indent_size, baseOptions.blockIndent, false)
             ?: getValue(PropertyType.tab_width, baseOptions.blockIndent, false)
 
     val continuationIndent =
