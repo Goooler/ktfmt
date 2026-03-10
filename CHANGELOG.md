@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## [1.0.0 Unreleased]
 
+### Added
+- Add `--quiet` flag to suppress per-file formatting status output.
+
 ### Changed
 - All styles managing trailing commas now (https://github.com/facebook/ktfmt/issues/216, https://github.com/facebook/ktfmt/issues/442)
 
