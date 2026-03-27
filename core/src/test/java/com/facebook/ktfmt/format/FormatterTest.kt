@@ -706,19 +706,32 @@ class FormatterTest {
 
   @Test
   fun `a property with a too long name being broken on multiple lines`() =
-      assertFormatted(
-          """
-          |////////////////////
-          |class Foo {
-          |  val thisIsALongName:
-          |      String =
-          |      "Hello there this is long"
-          |    get() = field
-          |}
-          |"""
-              .trimMargin(),
-          deduceMaxWidth = true,
-      )
+      assertThatFormatting(
+              """
+              |class Foo {
+              |  val thisIsALongName:
+              |      String =
+              |      "Hello there this is long"
+              |    get() = field
+              |}
+              |"""
+                  .trimMargin()
+          )
+          .withOptions(Formatter.META_FORMAT.copy(maxWidth = 20))
+          .isEqualTo(
+              """
+              |class Foo {
+              |  val thisIsALongName:
+              |      String =
+              |      "Hello " +
+              |          "there " +
+              |          "this is " +
+              |          "long"
+              |    get() = field
+              |}
+              |"""
+                  .trimMargin()
+          )
 
   @Test
   fun `multi-character unary and binary operators such as ==`() =
@@ -3220,6 +3233,50 @@ class FormatterTest {
       )
 
   @Test
+  fun `wrap long plain string literals`() =
+      assertThatFormatting(
+              """
+              |fun doIt() {
+              |  val message = "The quick brown fox jumps over the lazy dog and keeps going"
+              |}
+              |"""
+                  .trimMargin()
+          )
+          .withOptions(Formatter.META_FORMAT.copy(maxWidth = 40))
+          .isEqualTo(
+              """
+              |fun doIt() {
+              |  val message =
+              |      "The quick brown fox jumps " +
+              |          "over the lazy dog and keeps " +
+              |          "going"
+              |}
+              |"""
+                  .trimMargin()
+          )
+
+  @Test
+  fun `do not wrap interpolated string literals`() =
+      assertThatFormatting(
+              """
+              |fun doIt(value: String) {
+              |  val message = "The quick brown fox jumps over ${'$'}value"
+              |}
+              |"""
+                  .trimMargin()
+          )
+          .withOptions(Formatter.META_FORMAT.copy(maxWidth = 44))
+          .isEqualTo(
+              """
+              |fun doIt(value: String) {
+              |  val message =
+              |      "The quick brown fox jumps over ${'$'}value"
+              |}
+              |"""
+                  .trimMargin()
+          )
+
+  @Test
   fun `handle multiline string literals`() =
       assertFormatted(
           """
@@ -3312,7 +3369,7 @@ class FormatterTest {
     val before =
         """
         |val indent =
-        |    $TQ     
+        |    $TQ
         |         example
         |          of
         |            a
@@ -8978,7 +9035,7 @@ class FormatterTest {
         |          !animal.birdHunter -> animal.feedCat()
         |        is Animal.Cat if     (!animal.birdHunter) -> animal.feedCat()
         |          else  if animal
-        |              .eatsPlants -> animal.giveLettuce()   
+        |              .eatsPlants -> animal.giveLettuce()
         |        else -> println("Unknown animal")
         |    }
         |}

@@ -103,6 +103,7 @@ object Formatter {
         .let { sortedAndDistinctImports(it) }
         .let { dropRedundantElements(it, options) }
         .let { prettyPrint(it, options, lineSeparator = "\n") }
+        .let { wrapLongStrings(it, options) }
         .let { addRedundantElements(it, options) }
         .let { MultilineStringFormatter(options.continuationIndent).format(it) }
         .let { convertLineSeparators(it, checkNotNull(Newlines.guessLineSeparator(kotlinCode))) }
@@ -135,6 +136,11 @@ object Formatter {
     )
   }
 
+  private fun wrapLongStrings(code: String, options: FormattingOptions): String {
+    val wrapped = LongStringFormatter(options.maxWidth, options.continuationIndent).format(code)
+    return if (wrapped == code) wrapped else prettyPrint(wrapped, options, lineSeparator = "\n")
+  }
+
   private fun createAstVisitor(options: FormattingOptions, builder: OpsBuilder): PsiElementVisitor {
     if (KotlinVersion.CURRENT < MINIMUM_KOTLIN_VERSION) {
       throw RuntimeException("Unsupported runtime Kotlin version: " + KotlinVersion.CURRENT)
@@ -149,8 +155,8 @@ object Formatter {
     }
     if (index != -1) {
       throw ParseError(
-          "ktfmt does not support code which contains one of {\\u0003, \\u0004, \\u0005} character" +
-              "; escape it",
+          "ktfmt does not support code which contains one of {\\u0003, \\u0004, \\u0005} " +
+              "character; escape it",
           StringUtil.offsetToLineColumn(code, index),
       )
     }

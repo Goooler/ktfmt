@@ -65,7 +65,8 @@ fun assertFormatted(
   } else {
     if (isFirstLineAMaxWidthMarker) {
       throw RuntimeException(
-          "deduceMaxWidth is false, please remove the first dashes only line from the code (i.e. ---)"
+          "deduceMaxWidth is false, please remove the first dashes only line from the code " +
+              "(i.e. ---)"
       )
     }
   }
@@ -102,7 +103,8 @@ class FormattedCodeSubject(metadata: FailureMetadata, private val code: String) 
   fun isEqualTo(@Language("kts") expectedFormatting: String) {
     if (!allowTrailingWhitespace && expectedFormatting.lines().any { it.endsWith(" ") }) {
       throw RuntimeException(
-          "Expected code contains trailing whitespace, which the formatter usually doesn't output:\n" +
+          "Expected code contains trailing whitespace, which the formatter usually doesn't " +
+              "output:\n" +
               expectedFormatting
                   .lines()
                   .map { if (it.endsWith(" ")) "[$it]" else it }
@@ -123,7 +125,8 @@ class FormattedCodeSubject(metadata: FailureMetadata, private val code: String) 
         println("#".repeat(20))
         println(
             "Need more information about the break operations? " +
-                "Run test with assertion with \"FormattingOptions(debuggingPrintOpsAfterFormatting = true)\""
+                "Run test with assertion with " +
+                "\"FormattingOptions(debuggingPrintOpsAfterFormatting = true)\""
         )
       }
     } catch (e: Error) {

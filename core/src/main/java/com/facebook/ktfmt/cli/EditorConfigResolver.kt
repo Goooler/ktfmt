@@ -42,14 +42,16 @@ object EditorConfigResolver {
   private val ijContinuationIndentSize: PropertyType<Int> =
       PropertyType.LowerCasingPropertyType(
           "ij_continuation_indent_size",
-          "Denotes the continuation indent size. Useful to distinguish code blocks versus continuation lines",
+          "Denotes the continuation indent size. Useful to distinguish code blocks versus " +
+              "continuation lines",
           PropertyType.PropertyValueParser.POSITIVE_INT_VALUE_PARSER,
       )
 
   private val ijKotlinContinuationIndentSize: PropertyType<Int> =
       PropertyType.LowerCasingPropertyType(
           "ij_kotlin_continuation_indent_size",
-          "Denotes the Kotlin-specific continuation indent size. Takes precedence over ij_continuation_indent_size",
+          "Denotes the Kotlin-specific continuation indent size. Takes precedence over " +
+              "ij_continuation_indent_size",
           PropertyType.PropertyValueParser.POSITIVE_INT_VALUE_PARSER,
       )
 
