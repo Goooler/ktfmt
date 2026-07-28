@@ -1,4 +1,4 @@
-# ktfmt [![GitHub release](https://img.shields.io/github/release/facebook/ktfmt?sort=semver)](https://github.com/facebook/ktfmt/releases/)   [![Maven Central Version](https://img.shields.io/maven-central/v/com.facebook/ktfmt)](https://central.sonatype.com/artifact/com.facebook/ktfmt)   [![](https://github.com/facebook/ktfmt/workflows/Build%20and%20Test/badge.svg)](https://github.com/facebook/ktfmt/actions/workflows/build_and_test.yml "GitHub Actions workflow status")   [![slack](https://img.shields.io/badge/Slack-ktfmt-purple.svg?logo=slack)](https://slack-chats.kotlinlang.org/c/ktfmt)   [![invite](https://img.shields.io/badge/Request%20a%20Slack%20invite-8A2BE2)](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)   [![issues - ktfmt](https://img.shields.io/github/issues/facebook/ktfmt)](https://github.com/facebook/ktfmt/issues)
+# ktfmt [![GitHub release](https://img.shields.io/github/release/kotlin/ktfmt?sort=semver)](https://github.com/facebook/ktfmt/releases/)   [![Maven Central Version](https://img.shields.io/maven-central/v/com.facebook/ktfmt)](https://central.sonatype.com/artifact/com.facebook/ktfmt)   [![](https://github.com/facebook/ktfmt/workflows/Build%20and%20Test/badge.svg)](https://github.com/facebook/ktfmt/actions/workflows/build_and_test.yml "GitHub Actions workflow status")   [![slack](https://img.shields.io/badge/Slack-ktfmt-purple.svg?logo=slack)](https://slack-chats.kotlinlang.org/c/ktfmt)   [![invite](https://img.shields.io/badge/Request%20a%20Slack%20invite-8A2BE2)](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)   [![issues - ktfmt](https://img.shields.io/github/issues/facebook/ktfmt)](https://github.com/facebook/ktfmt/issues)
 
 `ktfmt` is a program that pretty-prints (formats) Kotlin code, based on
 [google-java-format](https://github.com/google/google-java-format).
@@ -20,9 +20,9 @@ IntelliJ:
 
 ## Playground
 
-We have a [live playground](https://facebook.github.io/ktfmt/) where you can easily see how ktfmt
+We have a [live playground](https://kotlin.github.io/ktfmt/) where you can easily see how ktfmt
 would format your code.
-Give it a try! https://facebook.github.io/ktfmt/
+Give it a try! https://kotlin.github.io/ktfmt/
 
 ## Using the formatter
 
@@ -69,7 +69,7 @@ $ brew install ktfmt
 
 ### from the command-line
 
-[Download the formatter](https://github.com/facebook/ktfmt/releases) and run it with:
+[Download the formatter](https://github.com/Kotlin/ktfmt/releases) and run it with:
 
 ```
 $ java -jar /path/to/ktfmt-<VERSION>-with-dependencies.jar [--kotlinlang-style | --google-style] [files...]
