@@ -130,6 +130,7 @@ data class ParsedArgs(
       var stdinName: String? = null
       var editorConfig = false
       var quiet = false
+      var useExperimentalEngine = false
       val lineRanges = TreeRangeSet.create<Int>()
       val offsets = mutableListOf<Int>()
       val lengths = mutableListOf<Int>()
@@ -159,6 +160,13 @@ data class ParsedArgs(
           arg == "--do-not-remove-unused-imports" -> removeUnusedImports = false
           arg == "--enable-editorconfig" -> editorConfig = true
           arg == "--quiet" -> quiet = true
+          arg == "--experimental-engine" -> {
+            // println, no ceremonies around streams, too experimental
+            System.err.println(
+                "You are using undocumented and unstable feature. We do not recommend doing so",
+            )
+            useExperimentalEngine = true
+          }
           arg.startsWith("--stdin-name=") ->
               stdinName =
                   parseKeyValueArg("--stdin-name", arg)
@@ -255,7 +263,10 @@ data class ParsedArgs(
 
       val parsedArgs = ParsedArgs(
           fileNames,
-          formattingOptions.copy(removeUnusedImports = removeUnusedImports),
+          formattingOptions.copy(
+              removeUnusedImports = removeUnusedImports,
+              experimentalEngine = useExperimentalEngine,
+          ),
           dryRun,
           setExitIfChanged,
           stdinName,
