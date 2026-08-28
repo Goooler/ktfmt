@@ -1,28 +1,52 @@
 -dontobfuscate
+-dontoptimize
 -keepattributes SourceFile, LineNumberTable
 
 
 -dontwarn com.google.auto.**
 -dontwarn gnu.trove.**
--dontwarn kotlin.annotations.jvm.**
--dontwarn kotlinx.coroutines.internal.intellij.**
--dontwarn org.checkerframework.checker.nullness.qual.Nullable
+-dontwarn kotlin.annotations.**
+-dontwarn kotlinx.coroutines.**
+-dontwarn kotlinx.serialization.**
+-dontwarn org.checkerframework.**
 -dontwarn org.jetbrains.annotations.**
 -dontwarn org.jetbrains.kotlin.com.google.errorprone.annotations.**
 -dontwarn org.jetbrains.kotlin.com.google.j2objc.annotations.**
 -dontwarn org.jetbrains.kotlin.com.intellij.util.**
 
 
-# Keep all ktfmt library classes and methods for Maven API, CLI, and unit test compatibility.
--keep class org.jetbrains.ktfmt.** { *; }
-
-# IntelliJ platform classes required for Kotlin AST parsing & CoreApplicationEnvironment.
--keep class org.jetbrains.kotlin.com.intellij.**
-
-# Kotlin AST PSI and KDoc elements (keep constructors for reflective ASTFactory instantiation).
--keepclassmembers class org.jetbrains.kotlin.psi.** {
-    public <init>(...);
+# Main entry point for CLI execution
+-keep class org.jetbrains.ktfmt.cli.Main {
+    public static void main(java.lang.String[]);
 }
--keepclassmembers class org.jetbrains.kotlin.kdoc.** {
-    public <init>(...);
+
+# Keep specific public and test-referenced ktfmt classes
+-keep class org.jetbrains.ktfmt.format.Formatter {
+    public static *** format(...);
+}
+-keep class org.jetbrains.ktfmt.format.FormattingOptions { *; }
+-keep class org.jetbrains.ktfmt.format.FormattingOptions$* { *; }
+-keep class org.jetbrains.ktfmt.format.ParseError { *; }
+-keep class org.jetbrains.ktfmt.format.KotlinInput { *; }
+-keep class org.jetbrains.ktfmt.format.MultilineStringFormatter { *; }
+-keep class org.jetbrains.ktfmt.format.MultilineStringFormatterKt { *; }
+-keep class org.jetbrains.ktfmt.format.Multiline* { *; }
+-keep class org.jetbrains.ktfmt.format.RedundantImportDetector { *; }
+-keep class org.jetbrains.ktfmt.format.RedundantSemicolonDetector { *; }
+-keep class org.jetbrains.ktfmt.format.TrailingCommas { *; }
+-keep class org.jetbrains.ktfmt.format.TrailingComma* { *; }
+-keep class org.jetbrains.ktfmt.kdoc.KDocFormattingOptions { *; }
+-keep class org.jetbrains.ktfmt.kdoc.KDocFormatter { *; }
+-keep class org.jetbrains.ktfmt.kdoc.UtilitiesKt { *; }
+-keep class org.jetbrains.ktfmt.kdoc.Escaping { *; }
+-keep class org.jetbrains.ktfmt.cli.ParsedArgs { *; }
+-keep class org.jetbrains.ktfmt.cli.ParsedArgs$* { *; }
+-keep class org.jetbrains.ktfmt.cli.EditorConfigResolver { *; }
+
+# Kotlin AST PSI and KDoc elements (keep only reflective ASTFactory ASTNode constructors).
+-keepclassmembers class org.jetbrains.kotlin.psi.** {
+    public <init>(org.jetbrains.kotlin.com.intellij.lang.ASTNode);
+}
+-keepclassmembers class org.jetbrains.kotlin.kdoc.psi.impl.** {
+    public <init>(org.jetbrains.kotlin.com.intellij.lang.ASTNode);
 }

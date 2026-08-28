@@ -92,6 +92,7 @@ tasks {
     failOnDuplicateEntries = true
     minimize {
       r8 {
+        useDefaultRules = false
         proguardRuleFiles.from(layout.projectDirectory.file("src/main/rules.txt"))
       }
     }
